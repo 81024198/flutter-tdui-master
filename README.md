@@ -1,45 +1,26 @@
 # tdui   [![pub package](https://img.shields.io/badge/-v0.0.2-brightgreen.svg)](http://tdui.td0f7.cn)
 
-#### TdUi 是一套视觉体验一致的基础UI样式框架，由weui演变而来，由于weui不兼容2.0及以上flutter版本，特更新此ui框架。
+**TdUi 是一套视觉体验一致的基础UI样式框架，由weui演变而来，如侵权请联系删除。**
+
+#### 下载 
+
+​	其他平台尽快更新，**本框架推荐做移动端框架，其他平台多多少少有问题**
 
 ## 测试下载
-- ### Android
-- ### iOS
-- ### Windows
-- ### Linux
-- ### macOs
-- ### Web
+1. [下载Android安装包](http://tdui.td0f7.cn/build/tdui.apk)
+2. iOS
+3. macOS
+4. Windows
+5. Linux
+6. [预览Web版](https://tdui.td0f7.cn/web/#/) 推荐使用**谷歌浏览器**，初次打开请耐心等待大概10-30秒
 
-## 预览图
-<img src="./README/1.png" width="280px" />
-<img src="./README/2.png" width="280px" />
-<img src="./README/3.png" width="280px" />
-<img src="./README/4.png" width="280px" />
-<img src="./README/5.png" width="280px" />
-<img src="./README/6.png" width="280px" />
+## 预览图|文档
 
-## 文档
-
-http://tdui.td0f7.cn
+[文档及预览图](http://tdui.td0f7.cn)】
+预览图在每个模块扫码即可预览
 
 ## 安装
 ```
 tdui: 0.0.2
-```
-
-## 如何运行案例
-#### 1. clone 代码
-```
-git clone https://github.com/81024198/flutter-tdui-master.git
-```
-
-#### 2. 安装依赖
-```
-flutter packages get
-```
-
-#### 3. 进入example目录 执行以下命令
-```
-flutter run
 ```
 
