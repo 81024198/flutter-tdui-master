@@ -27,7 +27,7 @@ class TdInput extends StatefulWidget {
   // 文字对其方式
   final TextAlign textAlign;
   // 输入框类型
-  final TextInputType type;
+  TextInputType type;
   // 密码框
   final bool obscureText;
   // 样式
@@ -40,6 +40,7 @@ class TdInput extends StatefulWidget {
   final TextInputAction? textInputAction;
   // onChange
   final Function(String value)? onChange;
+  final ValueChanged<String>? onSubmitted;
 
   TdInput(
       {this.key,
@@ -59,6 +60,7 @@ class TdInput extends StatefulWidget {
       this.autofocus = false,
       this.labelWidth = 80.0,
       this.textInputAction,
+      this.onSubmitted,
       this.onChange})
       : this.label = toTextWidget(label, 'label'),
         super(key: key);
@@ -144,6 +146,10 @@ class TdInputState extends State<TdInput> {
       }
     }
 
+    if (widget.maxLines > 1) {
+      widget.type = TextInputType.multiline;
+    }
+
     return TdCell(
       // label
       label: label,
@@ -163,6 +169,7 @@ class TdInputState extends State<TdInput> {
           onChanged: _onChange,
           maxLines: widget.maxLines,
           maxLength: widget.maxLength,
+          onSubmitted: widget.onSubmitted,
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: widget.hintText,

@@ -35,9 +35,9 @@ class IosWidgetState extends State<IosWidget> with TickerProviderStateMixin {
   // 动画
   late AnimationController _controller;
   //高度动画
-  late Animation<double> top;
+  Animation<double>? top;
   // 高度
-  late Animation<double> opacity;
+  Animation<double>? opacity;
   // 主题
   late TdTheme theme;
 
@@ -175,7 +175,7 @@ class IosWidgetState extends State<IosWidget> with TickerProviderStateMixin {
                       if (widget.maskClosable!) close();
                     },
                     child: Opacity(
-                        opacity: opacity == null ? 0.0 : opacity.value,
+                        opacity: opacity == null ? 0.0 : opacity!.value,
                         child: SizedBox(
                             child: DecoratedBox(
                                 decoration:
@@ -185,7 +185,7 @@ class IosWidgetState extends State<IosWidget> with TickerProviderStateMixin {
                 right: 0,
                 bottom: 0,
                 child: Transform.translate(
-                    offset: Offset(0, top == null ? 10000.0 : top.value),
+                    offset: Offset(0, top == null ? 10000.0 : top!.value),
                     child: DecoratedBox(
                         key: _boxKey,
                         decoration: BoxDecoration(color: Colors.white),

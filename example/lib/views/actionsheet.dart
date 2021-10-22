@@ -24,16 +24,21 @@ class ActionsheetPage extends StatelessWidget {
     return Sample('Actionsheet',
         describe: '弹出式菜单',
         child: Column(children: <Widget>[
-          TdButton('android', theme: TdButtonType.primary, onClick: () {
-            actionsheetAndroid(
+          TdButton(
+            'android',
+            theme: TdButtonType.primary,
+            onClick: () {
+              actionsheetAndroid(
                 options: options,
                 onChange: (String value) {
                   TdToast.info(context)('选择了$value');
                 },
                 onClose: () {
                   TdToast.info(context)('关闭');
-                });
-          }),
+                },
+              );
+            },
+          ),
           Container(height: 20.0),
           TdButton('ios', theme: TdButtonType.primary, onClick: () {
             actionsheetIos(

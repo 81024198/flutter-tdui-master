@@ -83,7 +83,9 @@ class TdToast {
   static _loading loading(BuildContext context) {
     _close show({message, duration, mask = true, icon}) {
       final int toastLoadingDuration =
-          TdUi.getConfig(context).toastLoadingDuration!;
+          TdUi.getConfig(context).toastLoadingDuration == null
+              ? 2000
+              : TdUi.getConfig(context).toastLoadingDuration!;
 
       return TdToast.toast(context)(
           icon: Rotating(icon == null ? _loadingIcon : icon, duration: 800),
@@ -126,7 +128,7 @@ class TdToast {
   static _toast toast(BuildContext context) {
     return ({message, duration, mask = true, icon, onClose}) {
       // 转换
-      final Widget messageWidget = toTextWidget(message, 'message')!;
+      final Widget? messageWidget = toTextWidget(message, 'message');
       Function? remove = createOverlayEntry(
           context: context,
           child: ToastWidget(

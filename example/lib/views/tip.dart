@@ -10,9 +10,11 @@ class TipPage extends StatefulWidget {
 class SwipePageState extends State {
   @override
   Widget build(BuildContext context) {
-    return Sample('TdTip',
-        describe: '提示气泡框',
-        child: Column(children: <Widget>[
+    return Sample(
+      'TdTip',
+      describe: '提示气泡框',
+      child: Column(
+        children: <Widget>[
           SizedBox(
               height: 50,
               child: TdTip(
@@ -44,6 +46,8 @@ class SwipePageState extends State {
                   child: TdBadge(
                     child: 'left',
                   )))
-        ]));
+        ],
+      ),
+    );
   }
 }

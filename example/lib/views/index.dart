@@ -30,12 +30,7 @@ class IndexState extends State<Index> {
         {'title': 'Radio', 'url': '/radio'},
         {'title': 'Input', 'url': '/input'},
         {'title': 'Slider', 'url': '/slider'},
-        {'title': 'Uploader', 'url': null},
         {'title': 'Switch', 'url': '/switch'},
-        {
-          'title': 'PickerView',
-          'url': null // '/picker_view'
-        }
       ]
     },
     {
@@ -194,7 +189,7 @@ class IndexState extends State<Index> {
                   Container(
                     padding: EdgeInsets.only(top: 10.0),
                     child: Text(
-                      'TdUi 是在weui基础上修改的ui框架，由于weui已经不更新了，特更新此框架。',
+                      'TdUi 是一套视觉体验一致的基础UI样式框架，由weui演变而来，由于weui不兼容2.0及以上flutter版本，特更新此ui框架。',
                       style: TextStyle(
                         fontSize: 15.0,
                         color: Color(0xff888888),

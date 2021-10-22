@@ -9,7 +9,7 @@ typedef _Close = Function();
 typedef _onChange = Function(String index);
 // 安卓
 typedef TdActionsheetAndroid = Function(
-    {@required List<TdActionsheetItem>? options,
+    {required List<TdActionsheetItem> options,
     _Close? onClose,
     bool? maskClosable,
     _onChange? onChange});
@@ -26,7 +26,7 @@ typedef TdActionsheetIos = Function(
 class TdActionsheet {
   // 安卓样式
   static TdActionsheetAndroid android(BuildContext context) {
-    return ({maskClosable = true, onClose, onChange, options}) {
+    return ({maskClosable = true, onClose, onChange, required options}) {
       final GlobalKey widgetKey = GlobalKey();
       late Function remove;
 
@@ -42,7 +42,7 @@ class TdActionsheet {
       void itemClick(int index) {
         remove();
         if (onChange is Function) {
-          final String value = options![index].value!;
+          final String value = options[index].value!;
           onChange!(value == null ? index.toString() : value);
         }
       }
@@ -55,7 +55,7 @@ class TdActionsheet {
               maskClosable: maskClosable!,
               close: hide,
               onChange: itemClick,
-              childer: options!),
+              childer: options),
           willPopCallback: () {
             (widgetKey.currentState as AndroidWidgetState).close();
           });
