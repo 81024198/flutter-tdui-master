@@ -4,7 +4,7 @@
 
 ## 文档
 
-https://allan-hx.github.io/flutter-TdUi-doc/index.html
+正在编写
 
 ## 安装
 
