@@ -1,4 +1,4 @@
-# tdui   [![pub package](https://img.shields.io/badge/-v0.0.2-brightgreen.svg)](http://tdui.td0f7.cn)
+# tdui   [![pub package](https://img.shields.io/badge/-0.0.3-brightgreen.svg)](http://tdui.td0f7.cn)
 
 **TdUi 是一套视觉体验一致的基础UI样式框架，由weui演变而来，如侵权请联系删除。**
 
@@ -21,6 +21,6 @@
 
 ## 安装
 ```
-tdui: 0.0.2
+tdui: 0.0.3
 ```
 

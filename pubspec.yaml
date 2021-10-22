@@ -1,7 +1,6 @@
 name: tdui
-description: 基于TdUi二开的ui框架，兼容2.0及以上Flutter SDK.
-version: 0.0.2
-
+description: 基于WeUi的ui框架，兼容2.0及以上Flutter SDK.
+version: 0.0.3
 homepage: https://github.com/81024198/flutter-tdui.git
 
 environment:
