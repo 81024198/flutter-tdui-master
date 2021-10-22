@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+//推动学堂修复 非移动端
 class TdSwipe extends StatefulWidget {
   final GlobalKey? key;
   // 数量
@@ -49,6 +52,7 @@ class TdSwipe extends StatefulWidget {
 }
 
 class TdSwipeState extends State<TdSwipe> {
+  double x = -1; //按下时x坐标
   late PageController _pageController;
   late int _index;
   Timer? _timer;
@@ -124,18 +128,26 @@ class TdSwipeState extends State<TdSwipe> {
     final double size = 7.0;
     int itemCount = widget.itemCount == null ? 0 : widget.itemCount!;
     for (var i = 0; i < itemCount; i++) {
-      indicators.add(Padding(
+      indicators.add(
+        Padding(
           padding: EdgeInsets.only(left: i == 0 ? 0.0 : 7.0),
           child: Opacity(
-              opacity: index == i ? 1.0 : 0.55,
-              child: SizedBox(
-                  width: size,
-                  height: size,
-                  child: DecoratedBox(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(size))))))));
+            opacity: index == i ? 1.0 : 0.55,
+            child: SizedBox(
+              width: size,
+              height: size,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(size),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
     }
     return indicators;
   }
@@ -165,65 +177,98 @@ class TdSwipeState extends State<TdSwipe> {
   }
 
   // 按下
-  onPointerDown(event) {
+  onPointerDown(PointerDownEvent event) {
     if (widget.autoPlay) {
       stopAutoPlay();
     }
-
-    int itemCount = widget.itemCount == null ? 0 : widget.itemCount!;
-    // 边界值判断
-    if (_index == itemCount + 1) {
-      _pageController.jumpToPage(1);
+    if (Platform.isIOS || Platform.isAndroid) {
+      int itemCount = widget.itemCount == null ? 0 : widget.itemCount!;
+      // 边界值判断
+      if (_index == itemCount + 1) {
+        _pageController.jumpToPage(1);
+      }
+    } else {
+      x = event.position.dx; //如果不是移动端，需要记录x坐标，因为不是移动端无法滑动
     }
   }
 
   // 抬起
-  onPointerUp(event) {
+  onPointerUp(PointerUpEvent event) {
     if (widget.autoPlay) {
       autoPlay();
     }
-
-    // 边界值判断
-    if (_index == 0) {
-      int itemCount = widget.itemCount == null ? 0 : widget.itemCount!;
-      _pageController.jumpToPage(itemCount);
+    int itemCount = widget.itemCount == null ? 0 : widget.itemCount!;
+    if (Platform.isIOS || Platform.isAndroid) {
+      // 边界值判断
+      if (_index == 0) {
+        _pageController.jumpToPage(itemCount);
+      }
+    } else {
+      //如果不是移动端
+      if (x - event.position.dx > 10) {
+        //滑动距离超过10个 才跳转界面
+        //如果滑动距离大于0，代表往左滑动，那就翻页
+        _index++;
+        if (_index > itemCount) _index = 1;
+        _pageController.jumpToPage(
+          _index,
+        );
+      } else if (x - event.position.dx < -10) {
+        //滑动距离超过10个 才跳转界面
+        //如果滑动距离大于0，代表往右滑动，那就减少一页
+        _index--;
+        if (_index < 1) _index = itemCount;
+        _pageController.jumpToPage(
+          _index,
+        );
+      }
     }
+    x = -1;
   }
 
   @override
   Widget build(BuildContext context) {
     Widget swipeWidget = PageView.builder(
-        itemCount: _list.length,
-        controller: _pageController,
-        onPageChanged: onChang,
-        itemBuilder: (BuildContext context, int index) {
-          return _list[index];
-        });
+      itemCount: _list.length,
+      controller: _pageController,
+      onPageChanged: onChang,
+      itemBuilder: (BuildContext context, int index) {
+        return _list[index];
+      },
+    );
 
     // 判断是否循环
     if (widget.cycle) {
       swipeWidget = Listener(
-          onPointerDown: onPointerDown,
-          onPointerUp: onPointerUp,
-          child: swipeWidget);
+        onPointerDown: onPointerDown,
+        onPointerUp: onPointerUp,
+        child: swipeWidget,
+      );
     }
 
     // 判断是否显示指示
     if (widget.indicators) {
-      swipeWidget = Stack(children: <Widget>[
-        swipeWidget,
-        // indicators
-        Positioned(
+      swipeWidget = Stack(
+        children: <Widget>[
+          swipeWidget,
+          // indicators
+          Positioned(
             left: 0,
             right: 0,
             bottom: 12.0,
             child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: renderIndicators(widget.cycle ? _index - 1 : _index)))
-      ]);
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: renderIndicators(widget.cycle ? _index - 1 : _index),
+            ),
+          ),
+        ],
+      );
     }
 
     return SizedBox(
-        width: widget.width, height: widget.height, child: swipeWidget);
+      width: widget.width,
+      height: widget.height,
+      child: swipeWidget,
+    );
   }
 }
